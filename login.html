@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form method="post" id="myForm">
+            <label>Username:</label>
+            <input type="text" placeholder="Enter your Email" id="usernameInput" required> <br>
+            <label>Password:</label>
+            <input type="password" placeholder="Enter password" id="passwordInput"><br/>
+            <button type="submit">Login</button>
+            <button><a href="loggedOut.html" style="text-decoration: none; color: black;">Cancel</a></button>
+        </form>
+        <button><a href="signup.html" style="text-decoration: none;">Create new user</a></button> 
+    </div>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+    
+            var username = document.getElementById("usernameInput").value;
+            var password = document.getElementById("passwordInput").value;
+    
+            var storedUsername = localStorage.getItem("username");
+            var storedPassword = localStorage.getItem("password");
+
+            if (username === storedUsername && password === storedPassword) {
+                window.location.href = "index.html";
+            } else {
+                window.location.href = 'loginFailed.html';
+            }
+        });
+    </script>
+</body>
+</html>

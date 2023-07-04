@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Reminder</title>
+</head>
+<body>
+    <h1>New Reminder</h1>
+
+    <form id="reminderForm">
+        <input type="number" hidden id="reminderId"><br> <!-- Hidden ID field -->
+        <label for="dateInput">Select a Date:</label>
+        <input type="date" id="dateInput" required><br><br>
+
+        <label for="subjectSelect">Subject:</label>
+        <select id="subjectSelect" required>
+            <option value="">Select a subject</option>
+            <option value="Subject 1">Subject 1</option>
+            <option value="Subject 2">Subject 2</option>
+            <option value="Subject 3">Subject 3</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <label for="descriptionTextarea">Add description:</label><br>
+        <textarea id="descriptionTextarea" rows="4" required></textarea><br><br>
+
+        <label for="emailInput">Email Address:</label>
+        <input type="email" id="emailInput" required><br><br>
+
+        <label for="contactNoInput">Contact No:</label>
+        <input type="tel" id="contactNoInput" required><br><br>
+
+        <label for="smsNoInput">SMS No:</label>
+        <input type="tel" id="smsNoInput" required><br><br>
+
+        <p>Recur for next:</p>
+        <input type="checkbox" id="7daysCheckbox">
+        <label for="7daysCheckbox">7 Days</label><br>
+
+        <input type="checkbox" id="5daysCheckbox">
+        <label for="5daysCheckbox">5 Days</label><br>
+
+        <input type="checkbox" id="3daysCheckbox">
+        <label for="3daysCheckbox">3 Days</label><br>
+
+        <input type="checkbox" id="2daysCheckbox">
+        <label for="2daysCheckbox">2 Days</label><br><br>
+
+        <button type="submit">Set Reminder</button>
+    </form>
+
+    <!-- <a href="logout.html">Log out</a> -->
+    <button onclick="logout()">Logout</button>
+
+    <script>
+       const logout = () => {
+          console.log("hy");
+          window.location.href = "login.html";
+        };
+
+
+
+        document.getElementById("reminderForm").addEventListener("submit", function(event) {
+          debugger
+            event.preventDefault();
+
+            var x = localStorage.getItem('username');
+            var y = localStorage.getItem('reminders');
+            var id;
+            if (y === null) {
+                id = x + 1;
+            } else {
+                var reminders = JSON.parse(y);
+                id = x + (reminders.length + 1);
+            }
+
+            var date = document.getElementById("dateInput").value;
+            var subject = document.getElementById("subjectSelect").value;
+            var description = document.getElementById("descriptionTextarea").value;
+            var email = document.getElementById("emailInput").value;
+            var contactNo = document.getElementById("contactNoInput").value;
+            var smsNo = document.getElementById("smsNoInput").value;
+
+            // Get recurring days
+            var recurringDays = [];
+            if (document.getElementById("7daysCheckbox").checked) {
+                recurringDays.push("7 Days");
+            }
+            if (document.getElementById("5daysCheckbox").checked) {
+                recurringDays.push("5 Days");
+            }
+            if (document.getElementById("3daysCheckbox").checked) {
+                recurringDays.push("3 Days");
+            }
+            if (document.getElementById("2daysCheckbox").checked) {
+                recurringDays.push("2 Days");
+            }
+
+            var reminder = {
+                id: id,
+                date: date,
+                subject: subject,
+                description: description,
+                email: email,
+                contactNo: contactNo,
+                smsNo: smsNo,
+                recurringDays: recurringDays
+            };
+
+            var reminders = localStorage.getItem("reminders");
+            if (reminders) {
+                reminders = JSON.parse(reminders);
+                reminders.push(reminder);
+            } else {
+                reminders = [reminder];
+            }
+
+            localStorage.setItem("reminders", JSON.stringify(reminders));
+            window.location.href = 'index.html';
+        });
+
+        </script>
+</body>
+</html>

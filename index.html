@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACXIOM</title>
+</head>
+
+<style>
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  .center{
+    margin:100px;
+    padding:50px;
+  }
+</style>
+
+<body>
+  <div class="center">
+  <a href="login.html"></a>
+  <a href="setReminder.html"></a>
+
+  <h1 id="username"></h1>
+  <p id="date">Today is: </p>
+  <button><a href="setReminder.html">Set Reminder</a></button>
+  <button><a href="DisableReminder.html">Disable Reminder</a></button>
+  <button><a href="DeleteReminder.html">Delete Reminder</a></button>
+  <button><a href="modifyReminder.html">Modify Reminder</a></button>
+  <button><a href="enableReminder.html">Enable Reminder</a></button>
+  <button><a href="Viewreminder.html">View your Reminder</a></button>
+  <br><br>
+  <button><a href="login.html">Back</a></button>
+  <button onclick="logout()">Logout</button>
+</div>
+
+  <script>
+    const logout = () => {
+      window.location.href = "login.html";
+    };
+
+    const currentDate = new Date();
+    const name=localStorage.getItem('username')
+    document.getElementById("username").innerHTML = "Welcome to the Reminder Application, " + name
+    document.getElementById("date").innerHTML = "Today is: " + currentDate.toDateString();
+  </script>
+</body>
+</html>
